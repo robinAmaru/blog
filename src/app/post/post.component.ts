@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
+  // définition des input attendus
   @Input() postTitre: string;
   @Input() postContent: string;
   @Input() postLoveIts: number;
