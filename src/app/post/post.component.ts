@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { PostService } from '../services/post.service';
+import { Router } from '@angular/router';
+import { Post } from '../models/post.model';
 
 @Component({
   selector: 'app-post',
@@ -13,7 +16,9 @@ export class PostComponent implements OnInit {
   @Input() postLoveIts: number;
   @Input() postCreated: Date;
 
-  constructor() { }
+
+  constructor(private postService: PostService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -31,5 +36,16 @@ export class PostComponent implements OnInit {
       return 'black';
      }
     }
+    onSave() {
+      const titre = this.postTitre;
+      const content = this.postContent;
+      const loveIts = this.postLoveIts;
+      const created = this.postCreated;
 
+      const newpost = new Post(titre, content, loveIts, created);
+      console.log('enregistrement');
+      this.postService.createNewPost(newpost);
+      this.router.navigate(['']);
+
+    }
 }
