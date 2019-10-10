@@ -1,19 +1,4 @@
-
-<!-- container -->
-<div class="container" role="main">
-  <div class="row">
-     <div class="col-xs-12">
-       <h2>Posts</h2>
-
-        <ul class="list-group">
-            <!--Affichage de chaque élément du posts-->
-            <app-post *ngFor="let post of posts"
-            [postTitre]= "post.title"
-            [postContent]= "post.content"
-            [postLoveIts]= "post.loveIts"
-            [postCreated]="post.dateCreated"></app-post>
-
-        </ul>
-     </div>
-    </div>
- </div>
+<app-header></app-header>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

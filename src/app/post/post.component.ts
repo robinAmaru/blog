@@ -1,25 +1,26 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
 
   // définition des input attendus
   @Input() postTitre: string;
   @Input() postContent: string;
   @Input() postLoveIts: number;
-  @Input() postCreated: Date;
+  @Input() postCreated: string;
+  @Input() postId: number;
 
-  constructor() { }
 
-  ngOnInit() {
-  }
+  constructor(private postService: PostService) { }
+
 
   onLove(num: number)  {
-    this.postLoveIts =  this.postLoveIts + num;
+    this.postService.loveIt(this.postId, num);
    }
 
   getColor() {
@@ -32,4 +33,7 @@ export class PostComponent implements OnInit {
      }
     }
 
+  onDelete() {
+    this.postService.removePost(this.postId);
+  }
 }
