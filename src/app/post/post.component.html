@@ -6,19 +6,18 @@
 
 <div class="row">
   <!-- directive par attribut de style permettant de modifier la couleur du texte -->
-     <h4 [ngStyle]="{color: getColor()}" class="col">{{ postTitre }}</h4>
+     <h4 [ngStyle]="{color: getColor()}" class="col">{{ postTitre }}
+       <span class="pull-right">{{ postCreated  | date:'short' }} </span>
+      </h4>
      <!-- le pipe 'date' permet de modifier le format de la date pour qu'il soit court-->
-     <p [ngStyle]="{color: getColor()}" class="col text-right">{{ postCreated  | date:'short' }} </p>
-</div>
 
-      <p [ngStyle]="{color: getColor()}"> {{ postContent }}</p>
+     </div>
+     <p [ngStyle]="{color: getColor()}">{{ postContent }}</p>
 <!-- boutons permettant d'ajouter ou d'enlever 1 "love" du post -->
       <button class="btn btn-success"
         (click)="onLove(1)">Love it!</button>
         <button class="btn btn-danger"
         (click)="onLove(-1)">Don't love it!</button>
-        <button class="btn btn-primary pull-right" (click)="onSave()">Enregistrer</button>
+        <button class="btn btn-danger pull-right" (click)="onDelete()">Supprimer</button>
     </li>
-
-
 </div>

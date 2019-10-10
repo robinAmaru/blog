@@ -7,11 +7,12 @@
 
         <ul class="list-group">
             <!--Affichage de chaque élément du posts-->
-            <app-post *ngFor="let post of posts"
-            [postTitre]= "post.title"
+            <app-post *ngFor="let post of posts; let i = index"
+            [postTitre]= "post.titre"
             [postContent]= "post.content"
             [postLoveIts]= "post.loveIts"
-            [postCreated]="post.dateCreated"></app-post>
+            [postCreated]="post.created"
+            [postId]="i"></app-post>
 
         </ul></div>
 

@@ -1,40 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
+import { Post } from 'src/app/models/post.model';
+import { Subscription } from 'rxjs-compat/Subscription';
 
 @Component({
   selector: 'app-listpost',
   templateUrl: './listpost.component.html',
   styleUrls: ['./listpost.component.css']
 })
-export class ListpostComponent {
+export class ListpostComponent implements OnInit, OnDestroy {
+
+  posts: Post[];
+  postSubscription: Subscription;
 
   constructor(private postService: PostService) { }
 
-  // initialisation de la date
-  datetoday = new Date();
 
-// création du tableau posts
-  posts = [
-    {
-      title: 'Mon premier post',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. ',
-      loveIts: 0,
-      dateCreated: this.datetoday
-    },
-    {
-      title: 'Mon deuxième post',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper.',
-      loveIts: 0,
-      dateCreated: this.datetoday
-        },
-    {
-      title: 'Encore un post',
-      content: 'Lorem ipsum dolor sit a digni, adipisci, dolor. Cis arcu massa, scelerisque vitae, consequat in, pretium a, enim. ',
-      loveIts: 0,
-      dateCreated: this.datetoday
-    }
-];
+  ngOnInit() {
+    this.postSubscription = this.postService.postsSubject.subscribe(
+      (posts: Post[]) => {
+        this.posts = posts;
+      }
+    );
+    this.postService.getPosts();
+    this.postService.emitPosts();
+  }
 
+  ngOnDestroy() {
+    this.postSubscription.unsubscribe();
+  }
 
 
 }
